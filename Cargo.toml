@@ -4,4 +4,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Piotr Mikołajczyk"]
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = { version = "1.0.91" }
+wasm-bindgen = { version = "0.2.83" }
