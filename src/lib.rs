@@ -4,13 +4,11 @@ mod universities;
 
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use crate::{
-    js_api::alert,
-    types::{MaturaResults, RecruitmentResults},
-    universities::process_matura_results,
-};
+use crate::{js_api::alert, types::MaturaResults, universities::process_matura_results};
 
 #[wasm_bindgen]
+/// The only method in our API: converts serialized `MaturaResults` into serialized
+/// `RecruitmentResults`.
 pub fn process(data: &str) {
     let matura_results: MaturaResults =
         serde_json::de::from_str(data).expect("Failed to deserialize matura results");
