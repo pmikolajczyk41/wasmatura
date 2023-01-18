@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>wasmatura</title>
+</head>
+<body>
+<script type="module">
+      import init, { process } from "./pkg/wasmatura.js";
+      init().then(() => {
+        process("{\"math\": 32, \"biology\": 64}");
+      });
+    </script>
+</body>
+</html>
