@@ -10,8 +10,7 @@ use crate::{
 pub fn process_matura_results(matura_results: &MaturaResults) -> RecruitmentResults {
     registered_universities()
         .into_iter()
-        .map(|uni| uni.calculate_aggregated_results(matura_results))
-        .flatten()
+        .flat_map(|uni| uni.calculate_aggregated_results(matura_results))
         .collect()
 }
 
@@ -19,11 +18,13 @@ pub fn process_matura_results(matura_results: &MaturaResults) -> RecruitmentResu
 trait University {
     const NAME: &'static str;
     const YEAR: u32;
-    const REGISTERED_FIELDS: Vec<Box<dyn FieldOfStudy>>;
+
+    /// Get all available fields of study.
+    fn registered_fields(&self) -> Vec<Box<dyn FieldOfStudy>>;
 
     /// Combine results from every registered field of study.
     fn calculate_aggregated_results(&self, matura_results: &MaturaResults) -> RecruitmentResults {
-        Self::REGISTERED_FIELDS
+        self.registered_fields()
             .iter()
             .map(|f| {
                 let result = (*f).calculate_result(matura_results);
